@@ -11,7 +11,7 @@
 
 
 
-#define JSHARE_VERSION_NUMBER 1.7.0
+#define JSHARE_VERSION_NUMBER 1.9.0
 
 #import <Foundation/Foundation.h>
 
@@ -19,16 +19,16 @@ typedef NS_ENUM(NSUInteger, JSHAREPlatform) {
     JSHAREPlatformWechatSession = 1,
     JSHAREPlatformWechatTimeLine = 2,
     JSHAREPlatformWechatFavourite = 3,
-    
+
     JSHAREPlatformQQ = 4,
     JSHAREPlatformQzone = 5,
-    
+
     JSHAREPlatformSinaWeibo = 6,
     JSHAREPlatformSinaWeiboContact = 7,
-    
+
     JSHAREPlatformFacebook = 8,
     JSHAREPlatformFacebookMessenger = 9,
-    
+
 
     JSHAREPlatformTwitter = 10,
 
@@ -146,6 +146,10 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
  *  JChatPro Auth
  */
 @property (nonatomic, copy) NSString *JChatProAuth;
+/*
+*  应用的 Universal link
+*/
+@property (nonatomic, copy) NSString *universalLink;
 
 @end
 
@@ -167,13 +171,14 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 /**
  文本：文本内容，长度每个平台的限制而不同。
  在分享非文本类型时，此字段作为分享内容的描述使用。
- 
+
  微信好友：分享文本类型时，最大 10 K字符。分享非文本类型，最大 1 K字符。
  微信朋友圈：分享文本类型时，最大 10 K字符。分享非文本类型，最大 1 K字符。
  微信收藏：分享文本类型时，最大 10 K字符。分享非文本类型，最大 1 K字符。
  QQ：分享文本类型时，最大 1536 字符。分享非文本类型，最大 512 字符。
  QQ空间：分享文本类型时，最大 128 字符。分享非文本类型，最大 512 字符。
  新浪微博：最大 140 汉字。
+        网页分享必须包含至少一个第三方分享到微博的网页URL(安全域名下的链接)，不能包含#话题词#。
  Twitter:最大 140 汉字
  JChatPro:消息内容。不超过4k字节
  微信小程序:描述内容。长度不能超过1k
@@ -346,11 +351,11 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 /**
  微信小程序: 是否使用带 shareTicket 的转发。默认false,不使用带 shareTicket 的转发。
  */
-@property (nonatomic, assign) BOOL withShareTicket;   
+@property (nonatomic, assign) BOOL withShareTicket;
 
 /**
  返回一个 JShareMessage 实例
- 
+
  @return 返回一个 JShareMessage 实例
  */
 + (JSHAREMessage *)message;
@@ -361,7 +366,7 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  启动SDK,必要!
- 
+
  @param config SDK启动参数模型，不可为nil。
  */
 + (void)setupWithConfig:(JSHARELaunchConfig *)config;
@@ -369,7 +374,7 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  处理平台回调,必要！
- 
+
  @param url 回调的url，在 Appdelegate 的 application:handleOpenURL: 中调用。不调用此接口 JSHARE 将无法提供分享回调。
  @return 处理结果 YES为处理成功，NO为不处理。
  */
@@ -377,7 +382,7 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  分享
- 
+
  @param message  分享参数
  @param handler  分享之后的回调
  */
@@ -424,7 +429,7 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  检查不存在新浪客户端情况下的网页端是否登陆
- 
+
  @return 返回结果
  */
 + (BOOL)isSinaWeiboWebLogined;
@@ -432,7 +437,7 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  登出新浪网页端最新帐号
- 
+
  @return 返回结果
  */
 + (BOOL)sinaWeiboWebLogOut;
@@ -440,14 +445,14 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  检查是否安装微信客户端
- 
+
  @return 返回结果
  */
 + (BOOL)isWeChatInstalled;
 
 /**
  检查是否存在QQ客户端
- 
+
  @return 返回结果
  */
 + (BOOL)isQQInstalled;
@@ -470,21 +475,21 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  检查是否存在新浪微博客户端
- 
+
  @return 返回结果
  */
 + (BOOL)isSinaWeiBoInstalled;
 
 /**
  检查是否存在Twitter客户端
- 
+
  @return 返回结果
  */
 + (BOOL)isTwitterInstalled;
 
 /**
  检查是否存在JChatPro客户端
- 
+
  @return 返回结果
  */
 + (BOOL)isJChatProInstalled;
@@ -493,12 +498,12 @@ typedef void(^JSHARESocialHandler)(JSHARESocialUserInfo *userInfo,NSError *error
 
 /**
  @abstract 设置是否打印sdk产生的Debug级log信息, 默认为NO(不打印log)
- 
+
  SDK 默认开启的日志级别为: Info. 只显示必要的信息, 不打印调试日志.
- 
+
  请在SDK启动后调用本接口，调用本接口可打开日志级别为: Debug, 打印调试日志.
  请在发布产品时改为NO，避免产生不必要的IO
- 
+
  此接口必须在"setupWithConfig:"之后调用才会生效.
  @param enable 是否打印
  */
