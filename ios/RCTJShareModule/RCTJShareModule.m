@@ -24,8 +24,11 @@
 
 #define JShareConfig_FileName @"RCTJShareConfig"
 @implementation RCTJShareModule
-
 RCT_EXPORT_MODULE();
+
++ (BOOL)requiresMainQueueSetup {
+  return NO;
+}
 
 + (id)allocWithZone:(NSZone *)zone {
   static RCTJShareModule *sharedInstance = nil;
@@ -202,6 +205,10 @@ RCT_EXPORT_METHOD(setup){
 
   if (param[@"jchatProAuth"]) {
     config.JChatProAuth = param[@"jchatProAuth"];
+  }
+	
+  if (param[@"universalLink"]) {
+	config.universalLink = param[@"universalLink"];
   }
   
   [JSHAREService setupWithConfig:config];
