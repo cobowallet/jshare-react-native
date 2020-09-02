@@ -151,7 +151,7 @@ RCT_EXPORT_METHOD(setup){
   }
   
   if (param[@"isProduction"]) {
-    config.isProduction = param[@"isProduction"];
+    config.isProduction = [param[@"isProduction"] boolValue];
   }
   
   if (param[@"wechatAppId"]) {
