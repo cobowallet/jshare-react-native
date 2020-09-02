@@ -49,9 +49,10 @@ public class JShareModule extends ReactContextBaseJavaModule {
     private static final String UNKNOWN = "unknown";
     private static final String CODE = "code";
     private static final String DESCRIPTION = "description";
+    private static ReactApplicationContext reactContext;
 
-    public JShareModule(ReactApplicationContext reactContext) {
-        super(reactContext);
+    public JShareModule(ReactApplicationContext reactApplicationContext) {
+        super(reactApplicationContext);
         reactContext = reactApplicationContext;
     }
 
