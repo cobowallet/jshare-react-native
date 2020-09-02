@@ -8,12 +8,11 @@ const JShareModule = NativeModules.JShareModule;
 
 export default class JShare {
     /**
-     * iOS Only
+     * 官方1.7.0版本iOS Only;  更新1.9.0版本Android已添加setup实现
      */
     static setup() {
         if (arguments[0] !== undefined) {
             console.warn('当前版本已经不需要在 setup 方法中传入参数。请复制 RCTJShareConfig.plist 文件到 XCode 工程中进行相关参数配置，详情请参考 iOS 配置文档。')
-        } else {
         }
         JShareModule.setup();
     }

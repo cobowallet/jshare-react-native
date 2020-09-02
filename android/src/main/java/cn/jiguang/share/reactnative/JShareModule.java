@@ -52,11 +52,20 @@ public class JShareModule extends ReactContextBaseJavaModule {
 
     public JShareModule(ReactApplicationContext reactContext) {
         super(reactContext);
+        reactContext = reactApplicationContext;
     }
 
     @Override
     public String getName() {
         return JSHARE_NAME;
+    }
+
+    @ReactMethod
+    public void setup() {
+        /**
+         * https://github.com/jpush/jshare-react-native/blob/master/docs/JSharePackage.md
+         */
+        JShareInterface.init(reactContext);
     }
 
     @ReactMethod
