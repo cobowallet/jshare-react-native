@@ -74,6 +74,10 @@ public class JShareModule extends ReactContextBaseJavaModule {
         try {
             boolean enable = map.getBoolean("enable");
             JShareInterface.setDebugMode(enable);
+            if (enable) {
+                Logger.SHUTDOWNTOAST = false;
+                Logger.SHUTDOWNLOG = false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
