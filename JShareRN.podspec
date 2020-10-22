@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
   s.libraries       = 'z','resolv'
   s.vendored_libraries = "ios/RCTJShareModule/*.a"
 
-  s.dependency 'React'
+  s.dependency 'React-Core'
 end
