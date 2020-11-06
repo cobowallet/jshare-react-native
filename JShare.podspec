@@ -3,12 +3,12 @@ pjson = JSON.parse(File.read('package.json'))
 
 Pod::Spec.new do |s|
 
-  s.name            = "JShareRN"
+  s.name            = "JShare"
   s.version         = pjson["version"]
-  s.homepage        = "https://github.com/jpush/jshare-react-native"
+  s.homepage        = pjson["homepage"]
   s.summary         = pjson["description"]
   s.license         = pjson["license"]
-  s.author          = { "huminios" => "380108184@qq.com" }
+  s.author          = pjson["author"]
   
   s.ios.deployment_target = '7.0'
 
