@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.jiguang.share.reactnative">
 
+    <!-- Required -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -13,14 +14,16 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
     <!-- Optional. Required for location feature -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+<!--    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> &lt;!&ndash; 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 &ndash;&gt;-->
+<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+<!--    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+<!--    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />-->
+<!--    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />-->
+<!--    <uses-permission android:name="android.permission.GET_TASKS" />-->
+
     <application>
         <!-- Required SDK核心功能-->
         <activity
@@ -29,10 +32,11 @@
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
+            
             <!-- Optional QQ分享回调-->
             <!-- scheme为“tencent”前缀再加上QQ开发者应用的appID；例如appID为123456，则scheme＝“tencent123456” -->
             <intent-filter>
-                <data android:scheme="tencent1106011004" />
+                <data android:scheme="tencent${TENCENT_APPID}" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -52,11 +56,13 @@
                 <data android:scheme="jsharesdk" android:host="sinaweibo"/>
             </intent-filter>
         </activity>
+
         <!-- User defined.  For test only  用户自定义的广播接收器-->
-        <receiver android:name="cn.jiguang.share.reactnative.JShareModule$FaceBookUploadReceiver">
-            <intent-filter>
-                <action android:name="com.facebook.platform.AppCallResultBroadcast" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name="cn.jiguang.share.reactnative.JShareModule$FaceBookUploadReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.facebook.platform.AppCallResultBroadcast" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
     </application>
 </manifest>
